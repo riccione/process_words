@@ -5,8 +5,16 @@ Get new (unknown) words from the text or link
 Process txt file to get a word list from it
 If the word is in known list => exclude it from the final list
 Create a final result list with new words
+
+TODO: argparse (filename for read)
+TODO: make a class
+TODO: make a library
 '''
 import re
+
+'''
+read file
+'''
 
 
 def read_file(filename):
@@ -16,12 +24,24 @@ def read_file(filename):
         words = set(data.split(' '))
     return list(words)
 
+
+'''
+remove punctuation, new lines
+'''
+
+
 def clean(x):
-    x = re.sub('[\'\"”\.,;:!?+\-=!@#$%^&*—/]', '', x)
-    x = re.sub('[\(\)]', '', x)
-    x = re.sub('\d', '', x)
+    x = re.sub(r'[\'\"”\.,;:!?+\-=!@#$%^&*—/]', '', x)
+    x = re.sub(r'[\(\)]', '', x)
+    x = re.sub(r'\d', '', x)
     x = x.replace('\n', '')
     return x.lower()
+
+
+'''
+known.txt file contains the list of known words
+'''
+
 
 def is_known(x):
     xz = []
@@ -31,6 +51,11 @@ def is_known(x):
             if w not in data and w != '':
                 xz.append(w)
     return xz
+
+
+'''
+save all unknown words to final.txt
+'''
 
 
 def save_file(x):
