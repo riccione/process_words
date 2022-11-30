@@ -6,11 +6,15 @@ Process txt file to get a word list from it
 If the word is in known list => exclude it from the final list
 Create a final result list with new words
 
+TODO: measure performance
 TODO: argparse (filename for read)
 TODO: make a class
 TODO: make a library
+
 '''
 import re
+# import nltk
+# nltk.download('punkt')
 
 '''
 read file
@@ -19,11 +23,22 @@ read file
 
 def read_file(filename):
     with open(filename, 'r') as f:
-        data = f.read()
-        data = clean(data)
-        words = set(data.split(' '))
+        lines = f.readlines()
+        words = make_word_list(lines)
+        #data = f.read()
+        #data = clean(data)
+        # words = set(data.split())
+        # words = set(nltk.word_tokenize(data))
     return list(words)
 
+
+def make_word_list(xz):
+    words = []
+    for x in xz:
+        xy = x.split()
+        for v in xy:
+            words.append(clean(v))
+    return set(words)
 
 '''
 remove punctuation, new lines
@@ -31,7 +46,7 @@ remove punctuation, new lines
 
 
 def clean(x):
-    x = re.sub(r'[\'\"”\.,;:!?+\-=!@#$%^&*—/]', '', x)
+    x = re.sub(r'[\'\"\”…\.,;:!?+\-=!“@#$%^&*—/]', '', x)
     x = re.sub(r'[\(\)]', '', x)
     x = re.sub(r'\d', '', x)
     x = x.replace('\n', '')
