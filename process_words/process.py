@@ -13,6 +13,7 @@ TODO: make a library
 
 '''
 import re
+
 # import nltk
 # nltk.download('punkt')
 
@@ -25,8 +26,8 @@ def read_file(filename):
     with open(filename, 'r') as f:
         lines = f.readlines()
         words = make_word_list(lines)
-        #data = f.read()
-        #data = clean(data)
+        # data = f.read()
+        # data = clean(data)
         # words = set(data.split())
         # words = set(nltk.word_tokenize(data))
     return list(words)
@@ -40,16 +41,14 @@ def make_word_list(xz):
             words.append(clean(v))
     return set(words)
 
+
 '''
 remove punctuation, new lines
 '''
 
 
 def clean(x):
-    x = re.sub(r'[\'\"\”…\.,;:!?+\-=!“@#$%^&*—/]', '', x)
-    x = re.sub(r'[\(\)]', '', x)
-    x = re.sub(r'\d', '', x)
-    x = x.replace('\n', '')
+    x = re.sub(r'[\'\"\”…\.,;:!?+\-=!“@#$%^&*—/\(\)\d\n]', '', x)
     return x.lower()
 
 
