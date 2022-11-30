@@ -48,8 +48,7 @@ remove punctuation, new lines
 
 
 def clean(x):
-    x = re.sub(r'[\'\"\”…\.,;:!?+\-=!“@#$%^&*—/\(\)\d\n]', '', x)
-    return x.lower()
+    return re.sub(r'[\'\"\”…\.,;:!?+\-=!“@#$%^&*—/\(\)\d\n]', '', x).lower()
 
 
 '''
