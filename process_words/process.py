@@ -14,8 +14,6 @@ TODO: make a library
 '''
 import re
 
-# import nltk
-# nltk.download('punkt')
 
 '''
 read file
@@ -26,10 +24,6 @@ def read_file(filename):
     with open(filename, 'r') as f:
         lines = f.readlines()
         words = make_word_list(lines)
-        # data = f.read()
-        # data = clean(data)
-        # words = set(data.split())
-        # words = set(nltk.word_tokenize(data))
     return list(words)
 
 
