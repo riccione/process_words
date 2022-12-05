@@ -1,3 +1,4 @@
 *.log
+*.lock
 final.txt
 sample.txt
