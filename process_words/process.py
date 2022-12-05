@@ -42,7 +42,7 @@ remove punctuation, new lines
 
 
 def clean(x):
-    return re.sub(r'[\'\"\”…\.,;:!?+\-=!“@#$%^&*—/\(\)\d\n]', '', x).lower()
+    return re.sub(r'[^a-zA-Z]', '', x).lower()
 
 
 '''
@@ -67,8 +67,11 @@ save all unknown words to final.txt
 
 def save_file(x):
     with open('./final.txt', 'w') as f:
-        for v in x:
+        last = 0
+        for i, v in enumerate(x):
             f.write(f"{v}\n")
+            last = i
+    print(f"Unknown words: {last}")
 
 
 data = read_file('./sample.txt')
