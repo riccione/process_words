@@ -1,4 +1,4 @@
-'''
+"""
 Goal:
 Get new (unknown) words from the text or link
 
@@ -11,17 +11,19 @@ TODO: argparse (filename for read)
 TODO: make a class
 TODO: make a library
 
-'''
+"""
 import re
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem import WordNetLemmatizer
 
+
 def read_file(filename):
-    with open(filename, 'r') as f:
+    with open(filename, "r") as f:
         data = f.read()
-        tokenizer = RegexpTokenizer(r'\w+')
+        tokenizer = RegexpTokenizer(r"\w+")
         words = tokenizer.tokenize(data)
     return words
+
 
 def get_stem(xz):
     xy = []
@@ -31,24 +33,27 @@ def get_stem(xz):
             xy.append(wnl.lemmatize(x.lower()))
     return xy
 
+
 def is_known(xz):
     xy = []
-    with open('./known.txt', 'r') as f:
+    with open("./known.txt", "r") as f:
         known = f.read()
         for x in xz:
             if x not in known:
                 xy.append(x)
     return xy
 
+
 def count_frequency(xz, xz_set):
     xy = []
     for x in xz_set:
-        if x != '':
+        if x != "":
             xy.append((x, xz.count(x)))
     return xy
 
+
 def save_file(x):
-    with open('./final.txt', 'w') as f:
+    with open("./final.txt", "w") as f:
         last = 0
         for i, v in enumerate(x):
             f.write(f"{v[0]}, {v[1]}\n")
@@ -60,7 +65,7 @@ def sort_by_frequency(xz):
     return sorted(xz, key=lambda x: x[1], reverse=True)
 
 
-data = read_file('./sample.txt')
+data = read_file("./sample.txt")
 data = get_stem(data)
 data = is_known(data)
 data = count_frequency(data, set(data))
