@@ -13,32 +13,32 @@ TODO: make a library
 
 '''
 import re
-
-
-'''
-read file
-'''
-
+from nltk.tokenize import RegexpTokenizer
+from nltk.stem import WordNetLemmatizer
 
 def read_file(filename):
     with open(filename, 'r') as f:
-        lines = f.readlines()
-        words = make_word_list(lines)
+        data = f.read()
+        tokenizer = RegexpTokenizer(r'\w+')
+        words = tokenizer.tokenize(data)
     return words
 
+def get_stem(xz):
+    xy = []
+    wnl = WordNetLemmatizer()
+    for x in xz:
+        if len(x) > 1 and not x.isnumeric():
+            xy.append(wnl.lemmatize(x.lower()))
+    return xy
 
-def make_word_list(xz):
-    words = []
+def is_known(xz):
+    xy = []
     with open('./known.txt', 'r') as f:
         known = f.read()
         for x in xz:
-            xy = x.split()
-            for v in xy:
-                v = clean(v)
-                if v not in known and v[:-1] not in known and v != '':
-                    words.append(v)
-    return words
-
+            if x not in known:
+                xy.append(x)
+    return xy
 
 def count_frequency(xz, xz_set):
     xy = []
@@ -46,21 +46,6 @@ def count_frequency(xz, xz_set):
         if x != '':
             xy.append((x, xz.count(x)))
     return xy
-
-
-'''
-remove punctuation, new lines
-'''
-
-
-def clean(x):
-    return re.sub(r'[^a-zA-Z\']', '', x).lower()
-
-
-'''
-save all unknown words to final.txt
-'''
-
 
 def save_file(x):
     with open('./final.txt', 'w') as f:
@@ -76,6 +61,8 @@ def sort_by_frequency(xz):
 
 
 data = read_file('./sample.txt')
+data = get_stem(data)
+data = is_known(data)
 data = count_frequency(data, set(data))
 data = sort_by_frequency(data)
 save_file(data)
