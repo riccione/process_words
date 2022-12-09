@@ -13,5 +13,8 @@ Manual installation
 - copy them to the created folder and put under specified subfolders (see above)
 - unzip and renamed in a specific way (see above)
 
+- install poetry
+- run `$poetry install` to install necessary dependencies
+
 ## Run
-`$poetry run python process_words/process.py`
+`poetry run python process_words/process.py ./sample.txt`

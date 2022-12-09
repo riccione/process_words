@@ -15,7 +15,8 @@ TODO: make a library
 import re
 from nltk.tokenize import RegexpTokenizer
 from nltk.stem import WordNetLemmatizer
-
+import argparse
+from pathlib import Path
 
 def read_file(filename):
     with open(filename, "r") as f:
@@ -64,10 +65,29 @@ def save_file(x):
 def sort_by_frequency(xz):
     return sorted(xz, key=lambda x: x[1], reverse=True)
 
+def is_file_exist(x):
+    if x is not None:
+        x = Path(x)
+        if x.is_file():
+            return True
+    return False
 
-data = read_file("./sample.txt")
-data = get_stem(data)
-data = is_known(data)
-data = count_frequency(data, set(data))
-data = sort_by_frequency(data)
-save_file(data)
+def combine(x):
+    data = read_file(x)
+    data = get_stem(data)
+    data = is_known(data)
+    data = count_frequency(data, set(data))
+    data = sort_by_frequency(data)
+    save_file(data)
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename", help="path to text file", type=str)
+    args = parser.parse_args()
+    if is_file_exist(args.filename):
+        combine(args.filename)
+    else:
+        print("File not found. Please provide a valid path to filename")
+
+if __name__ == "__main__":
+    main()
