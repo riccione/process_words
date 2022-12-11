@@ -7,7 +7,6 @@ If the word is in known list => exclude it from the final list
 Create a final result list with new words
 
 TODO: measure performance using profiler
-TODO: argparse (filename for read)
 TODO: make a class
 TODO: make a library
 
